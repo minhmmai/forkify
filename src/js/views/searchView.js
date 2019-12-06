@@ -7,7 +7,7 @@ export const clearInput = () => {
 };
 
 export const clearResult = () => {
-    elements.searchResultList.innerHTML = '';
+    elements.searchResultsList.innerHTML = '';
 };
 
 const limitTitle = (title, limit = 17) => {
@@ -38,7 +38,7 @@ const renderRecipe = recipe => {
         </a>
     </li>
     `
-    elements.searchResultList.insertAdjacentHTML('beforeend', markup);
+    elements.searchResultsList.insertAdjacentHTML('beforeend', markup);
 }
 
 export const renderResults = recipes =>
