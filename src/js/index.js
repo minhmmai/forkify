@@ -47,8 +47,9 @@ elements.searchForm.addEventListener('click', e => {
     controlSearch();
 });
 
-elements.searchResultsPages.addEventListener('click', e => {
+elements.searchResultPages.addEventListener('click', e => {
     const button = e.target.closest('.btn-inline');
+    console.log(button);
     if (button) {
         const goToPage = parseInt(button.dataset.goto, 10);
         searchView.clearResults();
@@ -63,7 +64,13 @@ const controlRecipe = async () => {
 
     if (id) {
         // Prepare UI for changes
+        recipeView.clearRecipe();
         renderLoader(elements.recipe);
+
+        // Highlight selected search item
+        if (state.search) {
+            searchView.highlightSelected(id)
+        }
 
         // Create new recipe object
         state.recipe = new Recipe(id);
@@ -79,7 +86,6 @@ const controlRecipe = async () => {
 
             // Render the recipe
             clearLoader();
-            recipeView.clearRecipe();
             recipeView.renderRecipe(state.recipe)
 
         } catch (error) {

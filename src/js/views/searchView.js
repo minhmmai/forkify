@@ -8,8 +8,14 @@ export const clearInput = () => {
 
 export const clearResults = () => {
     elements.searchResultsList.innerHTML = '';
-    elements.searchResultsPages.innerHTML = '';
+    elements.searchResultPages.innerHTML = '';
 };
+
+export const highlightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => el.classList.remove('results__link--active'));
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+}
 
 const limitTitle = (title, limit = 17) => {
     const newTitle = [];
@@ -28,7 +34,7 @@ const limitTitle = (title, limit = 17) => {
 const renderRecipe = recipe => {
     const markup = `
     <li>
-        <a class="results__link" href="?#${recipe.recipe_id}">
+        <a class="results__link" href="#${recipe.recipe_id}">
             <figure class="results__fig">
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
@@ -66,7 +72,7 @@ const renderPageButtons = (currentPage, resultNumber, resultsPerPage) => {
         button = createButton(currentPage, 'prev');
     }
 
-    elements.searchResultsPages.insertAdjacentHTML('afterbegin', button);
+    elements.searchResultPages.insertAdjacentHTML('afterbegin', button);
 };
 
 export const renderResults = (recipes, page = 1, resultsPerPage = 10) => {
